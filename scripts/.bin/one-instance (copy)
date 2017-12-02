@@ -5,7 +5,7 @@ then
   if [ $? == "0" ]
   then
     echo "running"
-    ps aux | grep terminator > /home/balkian/LOG
+    ps aux | grep terminator > /home/alvaro/LOG
     WID=`xdotool search --class $1 | head -1`
     wmctrl -i -a $WID
     if [ "x$2" != "x" ]

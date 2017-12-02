@@ -37,7 +37,7 @@ function drmia () {
 }
 
 function newdev () {
-    docker run -v $PWD:/usr/src/app -t -i --name $1 -h $1 balkian/devmachine
+    docker run -v $PWD:/usr/src/app -t -i --name $1 -h $1 alvarocarrera/devmachine
 }
 
 function docker_apply_containers () {
@@ -84,8 +84,10 @@ function docker_nuke () {
     docker rmi $(docker images -q)
 }
 
-alias gsicluster='ssh balkian@shannon.gsi.dit.upm.es -p 1337'      
+alias gsicluster='ssh a.carrera@shannon.gsi.dit.upm.es -p 1337'      
 
 function gsiclustercopy(){
-  scp -P 1337 $1 balkian@shannon.gsi.dit.upm.es:/shared/balkian/$2
+  scp -P 1337 $1 a.carrera@shannon.gsi.dit.upm.es:/shared/a.carrera/$2
 }
+
+export PATH="/home/alvaro/anaconda3/bin:$PATH" 

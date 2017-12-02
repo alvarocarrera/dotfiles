@@ -13,7 +13,7 @@ case "$1" in
             i3-msg exit
         ;;
     suspend)
-        xautolock -locknow
+#        xautolock -locknow
         dbus-send --system --print-reply --dest="org.freedesktop.login1" /org/freedesktop/login1 org.freedesktop.login1.Manager.Suspend boolean:true # XFCE4-power settings
         ;;
     hibernate)

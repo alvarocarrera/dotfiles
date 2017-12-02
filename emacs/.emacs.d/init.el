@@ -583,17 +583,17 @@ or the current buffer directory."
                        :match-func (lambda (msg)
                                      (when msg 
                                        (mu4e-message-contact-field-matches msg 
-                                                                           :to "jfsanchezrada@gmail.com")))
+                                                                           :to "carrerabarroso@gmail.com")))
                        :vars '(
                                (smtpmail-starttls-credentials '("smtp.gmail.com" 587 nil nil))
-                               (smtpmail-auth-credentials '(("smtp.gmail.com" 587 "jfsanchezrada@gmail.com" nil)))
+                               (smtpmail-auth-credentials '(("smtp.gmail.com" 587 "carrerabarroso@gmail.com" nil)))
                                (smtpmail-default-smtp-server "smtp.gmail.com")
                                (smtpmail-smtp-server "smtp.gmail.com")
                                (smtpmail-smtp-service 587)
                                (smtpmail-debug-info t)
-                               ( user-mail-address	     . "jfsanchezrada@gmail.com"  )
-                                 ( user-full-name	    . "J. Fernando Sánchez Rada" )
-                                 ( mu4e-compose-signature . "J. Fernando Sánchez\n")))
+                               ( user-mail-address	     . "carrerabarroso@gmail.com"  )
+                                 ( user-full-name	    . "Álvaro Carrera Barroso" )
+                                 ( mu4e-compose-signature . "Álvaro Carrera Barroso\n")))
                      ,(make-mu4e-context
                        :name "Sinpapel"
                        :enter-func (lambda () (mu4e-message "Switch to the Personal context"))
@@ -610,9 +610,9 @@ or the current buffer directory."
                                (smtpmail-smtp-service 587)
                                (smtpmail-debug-info t)
                                ( user-mail-address	     . "j@sinpapel.es"  )
-                               ( user-full-name	    . "J. Fernando Sánchez Rada" )
+                               ( user-full-name	    . "Álvaro Carrera Barroso" )
                                ( mu4e-compose-signature . 
-                                                        "J. Fernando Sánchez\n"))))
+                                                        "Álvaro Carrera Barroso\n"))))
                   )
 
 
@@ -627,7 +627,7 @@ or the current buffer directory."
             (setq mu4e-sent-folder   "/Sent Items")
             (setq mu4e-trash-folder  "/Trash")
             (setq message-signature-file "~/.emacs.d/.signature") ; put your signature in this file
-            (setq mu4e-get-mail-command "mbsync gmail-inbox balkian"
+            (setq mu4e-get-mail-command "mbsync gmail-inbox carrerabarroso"
                   mu4e-html2text-command "w3m -T text/html"
                   mu4e-update-interval 300
                   mu4e-headers-auto-update t
@@ -646,9 +646,9 @@ or the current buffer directory."
 
             ;; general emacs mail settings; used when composing e-mail
             ;; the non-mu4e-* stuff is inherited from emacs/message-mode
-            (setq mu4e-reply-to-address "jfsanchezrada@gmail.com"
-                  user-mail-address "jfsanchezrada@gmail.com"
-                  user-full-name  "J. Fernando Sánchez")
+            (setq mu4e-reply-to-address "carrerabarroso@gmail.com"
+                  user-mail-address "carrerabarroso@gmail.com"
+                  user-full-name  "Álvaro Carrera Barroso")
             ;; show images
             (setq mu4e-show-images t
                   mu4e-show-addresses t)
