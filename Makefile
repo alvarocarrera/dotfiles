@@ -10,6 +10,6 @@ submodules:
 
 docker: Dockerfile
 	git clone . /tmp/dotfiles
-	docker build -t balkian/devmachine /tmp/dotfiles
+	docker build -t alvarocarrera/devmachine /tmp/dotfiles
 
 .PHONY: stow submodules docker

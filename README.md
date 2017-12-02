@@ -1,15 +1,15 @@
-# Balkian's dotfiles
-
+# Alvaro's dotfiles
+Thanks to Balkian for introducing me to this world. Based on https://github.com/balkian/dotfiles.git
 ## Usage
 
 ### Download
 The Git Way:
 ```bash
-git clone https://github.com/balkian/dotfiles.git
+git clone https://github.com/alvarocarrera/dotfiles.git
 ```
 The fast way:
 ```bash
-curl -#L https://github.com/balkian/dotfiles/tarball/master | tar -xzv --strip-components 1 --exclude={README.md}
+curl -#L https://github.com/alvarocarrera/dotfiles/tarball/master | tar -xzv --strip-components 1 --exclude={README.md}
 ```
 ### Quick install
 
