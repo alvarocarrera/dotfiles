@@ -1,6 +1,1 @@
-# echo "pasado(xprofile)" $(date) >> /tmp/LOG
-setxkbmap us altgr-intl -option ctrl:nocaps
-#xmodmap ~/.Xmodmap
-#source ~/.xinitrc
-export XTERMINAL=termite
-export TERMINAL=termite
+set xkbmap es
