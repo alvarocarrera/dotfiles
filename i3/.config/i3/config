@@ -39,6 +39,9 @@ bindsym $mod+Shift+e exec --no-startup-id setxkbmap es
 # Launch arandr
 bindsym $mod+comma exec --no-startup-id arandr
 
+# Launch network manager script "netmenu"
+bindsym $mod+n exec --no-startup-id netmenu
+
 # start lock
 bindsym $mod+l exec --no-startup-id /home/alvaro/.bin/i3-exit.sh lock
 
