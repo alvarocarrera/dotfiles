@@ -91,3 +91,4 @@ function gsiclustercopy(){
 }
 
 export PATH="/home/alvaro/anaconda3/bin:$PATH" 
+echo "Welcome!"
