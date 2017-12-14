@@ -90,5 +90,8 @@ function gsiclustercopy(){
   scp -P 1337 $1 a.carrera@shannon.gsi.dit.upm.es:/shared/a.carrera/$2
 }
 
+alias fprgserver='ssh fprg@l048.lab.dit.upm.es'
+
 export PATH="/home/alvaro/anaconda3/bin:$PATH" 
-echo "Welcome!"
+
+echo "Welcome Overlord!"
