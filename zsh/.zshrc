@@ -93,5 +93,5 @@ function gsiclustercopy(){
 alias fprgserver='ssh fprg@l048.lab.dit.upm.es'
 
 export PATH="/home/alvaro/anaconda3/bin:$PATH" 
-
+#tail -n +1 /home/alvaro/msg
 echo "Welcome Overlord!"
