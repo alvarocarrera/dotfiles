@@ -254,7 +254,8 @@ bindsym $mod+Shift+Super_R exec --no-startup-id gedit
 
 
 #exec dex -ae i3
-exec --no-startup-id xautolock -time 10 -corners "----" -locker 'i3lock -t -c 000000 -i /usr/share/backgrounds/gnome/FootFall.png'
+exec --no-startup-id xautolock -time 10 -corners "----" -locker 'i3lock -t -c 000000 -i /home/alvaro/dotfiles/i3/.config/i3/spiration-dark.png'
+#exec --no-startup-id xautolock -time 10 -corners "----" -locker 'i3lock -t -c 000000 -i /usr/share/backgrounds/gnome/FootFall.png'
 #exec --no-startup-id xautolock -time 10 -corners "----" -locker 'i3lock -t -c 000000 -i /home/alvaro/backgrounds/inspiring-2560-x-1080-resolution-wallpapers.jpg'
 exec --no-startup-id owncloud
 exec --no-startup-id hp-systray -x
