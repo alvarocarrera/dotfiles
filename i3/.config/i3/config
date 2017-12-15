@@ -261,5 +261,6 @@ exec --no-startup-id owncloud
 exec --no-startup-id hp-systray -x
 exec --no-startup-id nm-applet
 exec --no-startup-id numlockx on
+exec --no-startup-id nitrogen --restore
 
 exec setxkbmap es
