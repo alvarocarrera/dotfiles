@@ -59,5 +59,6 @@ disk "/" {
 }
 
 volume master {
-	device = "pulse:@DEFAULT_SINK@"
+	#device = "pulse:@DEFAULT_SINK@"
+	device = "pulse"
 }
