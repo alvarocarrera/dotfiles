@@ -270,3 +270,6 @@ exec --no-startup-id nitrogen --restore
 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ 60%
 
 exec setxkbmap es
+
+exec_always --no-startup-id xfce4-power-manager
+
