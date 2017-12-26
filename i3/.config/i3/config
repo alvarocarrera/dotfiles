@@ -31,7 +31,6 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
-#bindsym Mod1+Shift+t exec --no-startup-id tmux
 
 # Spanish keyboard
 bindsym $mod+Shift+e exec --no-startup-id setxkbmap es
@@ -48,6 +47,8 @@ bindsym $mod+l exec --no-startup-id /home/alvaro/.bin/i3-exit.sh lock
 # start Google Chrome
 bindsym $mod+Shift+w exec --no-startup-id google-chrome
 bindsym $mod+Shift+Tab exec --no-startup-id google-chrome gmail.com calendar.google.com https://docs.google.com/spreadsheets/d/1j73UWBnDrZVqqPgkSxqQxhjgTpysb7IEOG00AEG4ylA/edit#gid=1
+
+bindsym $mod+i exec --no-startup-id "i3-msg 'workspace 2: Web; exec --no-startup-id google-chrome gmail.com calendar.google.com https://docs.google.com/spreadsheets/d/1j73UWBnDrZVqqPgkSxqQxhjgTpysb7IEOG00AEG4ylA/edit#gid=1; exec slack; exec --no-startup-id /opt/google/chrome/google-chrome --profile-directory=Default --app-id=knipolnnllmklapflnccelgolnpehhpl'"
 
 # start pavucontrol for audio settings
 bindsym $mod+Shift+a exec --no-startup-id pavucontrol
@@ -256,6 +257,14 @@ bindsym --release button2 kill
 bindsym Super_R exec --no-startup-id i3-dmenu-desktop 
 bindsym $mod+Super_R exec --no-startup-id google-chrome
 bindsym $mod+Shift+Super_R exec --no-startup-id gedit
+
+
+# Assign programs to workspaces
+assign [class="Google-chrome" instance="crx_knipolnnllmklapflnccelgolnpehhpl"] 7: Chat
+assign [class="Slack" instance="slack"] 7: Chat
+for_window [class="Google-chrome" instance="crx_knipolnnllmklapflnccelgolnpehhpl"] floating disable
+workspace "2: Web" output DP-1-1
+workspace "7: Chat" output eDP-1-1
 
 
 #exec dex -ae i3
