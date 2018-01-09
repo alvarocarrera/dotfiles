@@ -263,9 +263,12 @@ bindsym $mod+Shift+Super_R exec --no-startup-id gedit
 assign [class="Google-chrome" instance="crx_knipolnnllmklapflnccelgolnpehhpl"] 7: Chat
 assign [class="Slack" instance="slack"] 7: Chat
 for_window [class="Google-chrome" instance="crx_knipolnnllmklapflnccelgolnpehhpl"] floating disable
-workspace "2: Web" output DP-1-1
-workspace "7: Chat" output eDP-1-1
 
+workspace "7: Chat" output eDP-1-1
+#workspace "1: Term" output eDP-1-1
+workspace "2: Web" output DP-1-1
+
+exec --no-startup-id xrandr --output DP-1-1 --primary --auto --right-of eDP-1-1
 
 #exec dex -ae i3
 exec --no-startup-id xautolock -time 10 -corners "----" -locker 'i3lock -t -c 000000 -i /home/alvaro/dotfiles/i3/.config/i3/spiration-dark.png'
