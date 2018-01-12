@@ -48,7 +48,7 @@ bindsym $mod+l exec --no-startup-id /home/alvaro/.bin/i3-exit.sh lock
 bindsym $mod+Shift+w exec --no-startup-id google-chrome
 bindsym $mod+Shift+Tab exec --no-startup-id google-chrome gmail.com calendar.google.com https://docs.google.com/spreadsheets/d/1j73UWBnDrZVqqPgkSxqQxhjgTpysb7IEOG00AEG4ylA/edit#gid=1
 
-bindsym $mod+i exec --no-startup-id "i3-msg 'workspace 2: Web; exec --no-startup-id google-chrome gmail.com calendar.google.com https://docs.google.com/spreadsheets/d/1j73UWBnDrZVqqPgkSxqQxhjgTpysb7IEOG00AEG4ylA/edit#gid=1; exec slack; exec --no-startup-id /opt/google/chrome/google-chrome --profile-directory=Default --app-id=knipolnnllmklapflnccelgolnpehhpl'"
+bindsym $mod+i exec --no-startup-id "i3-msg 'workspace 2: Web; exec --no-startup-id google-chrome gmail.com calendar.google.com https://docs.google.com/spreadsheets/d/1j73UWBnDrZVqqPgkSxqQxhjgTpysb7IEOG00AEG4ylA/edit#gid=1; exec slack; exec --no-startup-id /opt/google/chrome/google-chrome --profile-directory=Default --app-id=knipolnnllmklapflnccelgolnpehhpl; exec --no-startup-id skypeforlinux'"
 
 # start pavucontrol for audio settings
 bindsym $mod+Shift+a exec --no-startup-id pavucontrol
@@ -262,6 +262,8 @@ bindsym $mod+Shift+Super_R exec --no-startup-id gedit
 # Assign programs to workspaces
 assign [class="Google-chrome" instance="crx_knipolnnllmklapflnccelgolnpehhpl"] 7: Chat
 assign [class="Slack" instance="slack"] 7: Chat
+assign [class="Skype" instance="skype"] 7: Chat
+
 for_window [class="Google-chrome" instance="crx_knipolnnllmklapflnccelgolnpehhpl"] floating disable
 
 workspace "7: Chat" output eDP-1-1
