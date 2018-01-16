@@ -14,10 +14,12 @@ general {
 #order += "ipv6"
 order += "disk /"
 #order += "run_watch DHCP"
+order += "disk /media/alvaro/Datos"
 #order += "run_watch VPN"
 order += "wireless _first_"
 order += "ethernet _first_"
 order += "battery 0"
+order += "cpu_temperature 0"
 order += "load"
 order += "tztime local"
 order += "volume master"
@@ -35,7 +37,16 @@ ethernet _first_ {
 }
 
 battery 0 {
+        #format = "%status %percentage %remaining"
+        #format = "%status %percentage %remaining %emptytime"
         format = "%status %percentage %remaining"
+        format_down = "No battery"
+        status_chr = "⚡ CHR"
+        status_bat = "🔋 BAT"
+        status_unk = "? UNK"
+        status_full = "☻ FULL"
+        path = "/sys/class/power_supply/BAT%d/uevent"
+        low_threshold = 10
 }
 
 run_watch DHCP {
@@ -51,14 +62,23 @@ tztime local {
 }
 
 load {
-        format = "CPU %1min"
+        format = "Load CPU %1min"
 }
 
 disk "/" {
-        format = "FREE %avail"
+        format = "System FREE %avail"
+}
+
+disk "/media/alvaro/Datos" {
+	format = "Data FREE %avail"
 }
 
 volume master {
 	#device = "pulse:@DEFAULT_SINK@"
 	device = "pulse"
+}
+
+cpu_temperature 0 {
+        format = "Temp CPU: %degrees °C"
+        path = "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input"
 }
