@@ -18,6 +18,7 @@ if which pyenv >/dev/null ; then
     eval "$(pyenv virtualenv-init -)"
 fi
 
+alias gitpush-origin-master="git push -u origin master"
 alias dps="docker ps"
 alias dpi="docker images"
 alias dc="docker-compose"
