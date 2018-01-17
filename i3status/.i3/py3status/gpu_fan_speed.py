@@ -4,11 +4,6 @@ from __future__ import division
 
 import re
 
-ONE_KIB = pow(1024, 1)  # 1 KiB in B
-ONE_MIB = pow(1024, 2)  # 1 MiB in B
-ONE_GIB = pow(1024, 3)  # 1 GiB in B
-
-
 class GetData:
     """
     Get system status
