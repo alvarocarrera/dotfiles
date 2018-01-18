@@ -263,6 +263,7 @@ bindsym $mod+Shift+Super_R exec --no-startup-id gedit
 assign [class="Google-chrome" instance="crx_knipolnnllmklapflnccelgolnpehhpl"] 7: Chat
 assign [class="Slack" instance="slack"] 7: Chat
 assign [class="Skype" instance="skype"] 7: Chat
+assign [class="Spotify" instance="spotify"] 6: Music
 
 for_window [class="Google-chrome" instance="crx_knipolnnllmklapflnccelgolnpehhpl"] floating disable
 
