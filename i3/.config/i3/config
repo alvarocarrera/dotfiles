@@ -46,9 +46,11 @@ bindsym $mod+l exec --no-startup-id /home/alvaro/.bin/i3-exit.sh lock
 
 # start Google Chrome
 bindsym $mod+Shift+w exec --no-startup-id google-chrome
-bindsym $mod+Shift+Tab exec --no-startup-id google-chrome gmail.com calendar.google.com https://docs.google.com/spreadsheets/d/1j73UWBnDrZVqqPgkSxqQxhjgTpysb7IEOG00AEG4ylA/edit#gid=1
+bindsym $mod+Shift+Tab exec --no-startup-id google-chrome https://mail.google.com/mail/u/1/#inbox https://calendar.google.com/calendar/b/1/r https://docs.google.com/spreadsheets/d/1j73UWBnDrZVqqPgkSxqQxhjgTpysb7IEOG00AEG4ylA/edit#gid=1 
+#bindsym $mod+Shift+Tab exec --no-startup-id google-chrome gmail.com calendar.google.com https://docs.google.com/spreadsheets/d/1j73UWBnDrZVqqPgkSxqQxhjgTpysb7IEOG00AEG4ylA/edit#gid=1
 
-bindsym $mod+i exec --no-startup-id "i3-msg 'workspace 2: Web; exec --no-startup-id google-chrome gmail.com calendar.google.com https://docs.google.com/spreadsheets/d/1j73UWBnDrZVqqPgkSxqQxhjgTpysb7IEOG00AEG4ylA/edit#gid=1; exec slack; exec --no-startup-id /opt/google/chrome/google-chrome --profile-directory=Default --app-id=knipolnnllmklapflnccelgolnpehhpl; exec --no-startup-id skypeforlinux'"
+bindsym $mod+i exec --no-startup-id "i3-msg 'workspace 2: Web; exec --no-startup-id google-chrome https://mail.google.com/mail/u/1/#inbox https://calendar.google.com/calendar/b/1/r https://docs.google.com/spreadsheets/d/1j73UWBnDrZVqqPgkSxqQxhjgTpysb7IEOG00AEG4ylA/edit#gid=1; exec slack; exec --no-startup-id /opt/google/chrome/google-chrome --profile-directory=Default --app-id=knipolnnllmklapflnccelgolnpehhpl; exec --no-startup-id skypeforlinux'"
+#bindsym $mod+i exec --no-startup-id "i3-msg 'workspace 2: Web; exec --no-startup-id google-chrome gmail.com calendar.google.com https://docs.google.com/spreadsheets/d/1j73UWBnDrZVqqPgkSxqQxhjgTpysb7IEOG00AEG4ylA/edit#gid=1; exec slack; exec --no-startup-id /opt/google/chrome/google-chrome --profile-directory=Default --app-id=knipolnnllmklapflnccelgolnpehhpl; exec --no-startup-id skypeforlinux'"
 
 # start pavucontrol for audio settings
 bindsym $mod+Shift+a exec --no-startup-id pavucontrol
@@ -68,7 +70,7 @@ bindsym $mod+Shift+n exec --no-startup-id nemo --no-desktop
 bindsym $mod+Shift+t exec --no-startup-id texstudio
 
 # start Eclipse Neon
-bindsym $mod+Shift+f exec --no-startup-id /home/alvaro/eclipse/java-neon/eclipse/eclipse
+bindsym $mod+Shift+f exec --no-startup-id /opt/eclipse/eclipse
 
 # Winmenu
 bindsym Mod1+Tab exec --no-startup-id /home/alvaro/.bin/winmenu.sh
@@ -268,10 +270,10 @@ assign [class="Spotify" instance="spotify"] 6: Music
 for_window [class="Google-chrome" instance="crx_knipolnnllmklapflnccelgolnpehhpl"] floating disable
 
 workspace "7: Chat" output eDP-1-1
-#workspace "1: Term" output eDP-1-1
 workspace "2: Web" output DP-1-1
 
-exec --no-startup-id xrandr --output DP-1-1 --primary --auto --right-of eDP-1-1
+#exec --no-startup-id xrandr --output DP-1-1 --primary --auto --right-of eDP-1-1
+exec --no-startup-id xrandr --output DP-1-1 --primary --right-of eDP-1-1
 
 #exec dex -ae i3
 exec --no-startup-id xautolock -time 10 -corners "----" -locker 'i3lock -t -c 000000 -i /home/alvaro/dotfiles/i3/.config/i3/spiration-dark.png'
