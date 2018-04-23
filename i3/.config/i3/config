@@ -274,7 +274,10 @@ workspace "7: Chat" output eDP-1-1
 workspace "2: Web" output DP-1-1
 
 #exec --no-startup-id xrandr --output DP-1-1 --primary --auto --right-of eDP-1-1
-exec --no-startup-id xrandr --output DP-1-1 --primary --right-of eDP-1-1
+#exec --no-startup-id xrandr --output DP-1-1 --primary --right-of eDP-1-1
+
+exec --no-startup-id xrandr --output DP-1-1 --right-of eDP-1-1
+exec --no-startup-id xrandr --output eDP-1-1 --primary
 
 #exec dex -ae i3
 exec --no-startup-id xautolock -time 10 -corners "----" -locker 'i3lock -t -c 000000 -i /home/alvaro/dotfiles/i3/.config/i3/spiration-dark.png'
