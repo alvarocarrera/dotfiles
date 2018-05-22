@@ -267,6 +267,7 @@ assign [class="Google-chrome" instance="crx_knipolnnllmklapflnccelgolnpehhpl"] 7
 assign [class="Skype" instance="skype"] 7: Chat
 assign [class="Mattermost" instance="mattermost"] 7: Chat
 assign [class="Spotify" instance="spotify"] 6: Music
+assign [class="Google-chrome" instance="google-chrome"] 2: Web
 
 for_window [class="Google-chrome" instance="crx_knipolnnllmklapflnccelgolnpehhpl"] floating disable
 
