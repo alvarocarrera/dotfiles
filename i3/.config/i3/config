@@ -50,7 +50,6 @@ bindsym $mod+Shift+Tab exec --no-startup-id google-chrome https://mail.google.co
 #bindsym $mod+Shift+Tab exec --no-startup-id google-chrome gmail.com calendar.google.com https://docs.google.com/spreadsheets/d/1j73UWBnDrZVqqPgkSxqQxhjgTpysb7IEOG00AEG4ylA/edit#gid=1
 
 bindsym $mod+i exec --no-startup-id "i3-msg 'workspace 2: Web; exec --no-startup-id google-chrome https://mail.google.com/mail/u/1/#inbox https://calendar.google.com/calendar/b/1/r https://docs.google.com/spreadsheets/d/1j73UWBnDrZVqqPgkSxqQxhjgTpysb7IEOG00AEG4ylA/edit#gid=1; exec mattermost-desktop; exec --no-startup-id /opt/google/chrome/google-chrome --profile-directory=Default --app-id=knipolnnllmklapflnccelgolnpehhpl; exec --no-startup-id skypeforlinux'"
-#bindsym $mod+i exec --no-startup-id "i3-msg 'workspace 2: Web; exec --no-startup-id google-chrome gmail.com calendar.google.com https://docs.google.com/spreadsheets/d/1j73UWBnDrZVqqPgkSxqQxhjgTpysb7IEOG00AEG4ylA/edit#gid=1; exec slack; exec --no-startup-id /opt/google/chrome/google-chrome --profile-directory=Default --app-id=knipolnnllmklapflnccelgolnpehhpl; exec --no-startup-id skypeforlinux'"
 
 # start pavucontrol for audio settings
 bindsym $mod+Shift+a exec --no-startup-id pavucontrol
@@ -263,6 +262,7 @@ bindsym $mod+Shift+Super_R exec --no-startup-id gedit
 
 # Assign programs to workspaces
 assign [class="Google-chrome" instance="crx_knipolnnllmklapflnccelgolnpehhpl"] 7: Chat
+assign [class="Google-chrome" instance="crx_nckgahadagoaajjgafhacjanaoiihapd"] 7: Chat
 #assign [class="Slack" instance="slack"] 7: Chat
 assign [class="Skype" instance="skype"] 7: Chat
 assign [class="Mattermost" instance="mattermost"] 7: Chat
