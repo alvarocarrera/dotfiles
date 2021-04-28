@@ -60,6 +60,9 @@ bindsym $mod+Shift+s exec --no-startup-id spotify
 # start gtg
 bindsym $mod+Shift+g exec --no-startup-id gtg
 
+
+bindsym $mod++g exec --no-startup-id google-drive-ocamlfuse /media/alvaro/Datos/GoogleDrive-carrerabarroso
+
 #start mattermost
 #bindsym $mod+Shift+m exec --not-startup-id mattermost
 # start nemo
@@ -292,6 +295,8 @@ exec --no-startup-id nitrogen --restore
 exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ 60%
 
 exec setxkbmap es
+
+#exec --no-startup-id google-drive-ocamlfuse /media/alvaro/Datos/GoogleDrive-carrerabarroso
 
 exec_always --no-startup-id xfce4-power-manager
 
