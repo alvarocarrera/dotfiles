@@ -87,12 +87,6 @@ function docker_nuke () {
     docker rmi $(docker images -q)
 }
 
-alias gsicluster='ssh a.carrera@shannon.gsi.upm.es -p 1337'      
-
-function gsiclustercopy(){
-  scp -P 1337 $1 a.carrera@shannon.gsi.upm.es:/shared/a.carrera/$2
-}
-
 #export PATH="/home/alvaro/.bin:/opt/eclipse:/opt/anaconda3/bin:$PATH" 
 #tail -n +1 /home/alvaro/msg
 #echo "Welcome Overlord!"
