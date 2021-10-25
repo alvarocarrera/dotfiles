@@ -5,6 +5,8 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+plugins=(git docker docker-compose)
+
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
@@ -85,14 +87,12 @@ function docker_nuke () {
     docker rmi $(docker images -q)
 }
 
-alias gsicluster='ssh a.carrera@shannon.gsi.dit.upm.es -p 1337'      
+alias gsicluster='ssh a.carrera@shannon.gsi.upm.es -p 1337'      
 
 function gsiclustercopy(){
-  scp -P 1337 $1 a.carrera@shannon.gsi.dit.upm.es:/shared/a.carrera/$2
+  scp -P 1337 $1 a.carrera@shannon.gsi.upm.es:/shared/a.carrera/$2
 }
 
-alias fprgserver='ssh fprg@l048.lab.dit.upm.es'
-
-export PATH="/home/alvaro/.bin:/opt/eclipse:/opt/anaconda3/bin:$PATH" 
+#export PATH="/home/alvaro/.bin:/opt/eclipse:/opt/anaconda3/bin:$PATH" 
 #tail -n +1 /home/alvaro/msg
 #echo "Welcome Overlord!"
