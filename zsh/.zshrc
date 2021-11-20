@@ -87,6 +87,10 @@ function docker_nuke () {
     docker rmi $(docker images -q)
 }
 
+function prometeo-ssh-login () {
+    ssh alvaro@prometeo
+}
+
 #export PATH="/home/alvaro/.bin:/opt/eclipse:/opt/anaconda3/bin:$PATH" 
 #tail -n +1 /home/alvaro/msg
 #echo "Welcome Overlord!"
