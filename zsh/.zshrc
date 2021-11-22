@@ -87,9 +87,14 @@ function docker_nuke () {
     docker rmi $(docker images -q)
 }
 
+<<<<<<< HEAD
 function attach-tmux {
     readonly session=${1:?"Session must be specified."}
     tmux attach -t "$session"
+=======
+function prometeo-ssh-login () {
+    ssh alvaro@prometeo
+>>>>>>> e26c16d49f5c7b028afb90b945cbc320f98b8179
 }
 
 #export PATH="/home/alvaro/.bin:/opt/eclipse:/opt/anaconda3/bin:$PATH" 
