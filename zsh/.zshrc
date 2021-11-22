@@ -87,6 +87,11 @@ function docker_nuke () {
     docker rmi $(docker images -q)
 }
 
+function attach-tmux {
+    readonly session=${1:?"Session must be specified."}
+    tmux attach -t "$session"
+}
+
 #export PATH="/home/alvaro/.bin:/opt/eclipse:/opt/anaconda3/bin:$PATH" 
 #tail -n +1 /home/alvaro/msg
 #echo "Welcome Overlord!"

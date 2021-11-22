@@ -18,7 +18,7 @@ fi
 #
 
 export EDITOR='vi'
-export VISUAL="myemacs -c"
+export VISUAL="nano"
 export ALTERNATE_EDITOR=""
 export PAGER='less'
 
