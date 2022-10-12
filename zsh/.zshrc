@@ -23,13 +23,14 @@ fi
 alias gitpush-origin-master="git push -u origin master"
 alias dps="docker ps"
 alias dpi="docker images"
-alias dc="docker-compose"
+alias dc="docker compose"
 alias dcr="compose-run"
 alias da="docker_start_attach"
 alias daa="docker_apply_all_containers"
 alias dci="docker_clean_images"
 alias dcc="docker_clean_containers"
 alias dac="docker_apply_containers"
+alias dip="docker image prune"
 
 function docker_start_attach () {
     docker start $1 && docker attach $1
