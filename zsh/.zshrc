@@ -101,7 +101,19 @@ function atlas-ssh-login () {
     ssh alvaro@atlas
 }
 
+function start-pal-dev-docker-machine () {
+    bash /home/alvaro/git/amor-robots/pal_docker_utils/scripts/pal_docker.sh -it -d -v /home/alvaro/docker_mounts/gallium:/home/user/ -v /home/alvaro/pal-workspace:/home/user/example_ws/ --name pal-dev-machine registry.gitlab.com/pal-robotics/ari-1922/dockers/pal-gallium-pal-metapkg-development-ari-41-dev
+}
 
+function attach-pal-dev () {
+    docker exec -it --user user pal-dev-machine bash
+}
+
+function ari-ssh-login {
+    ssh pal@ari-${1:-42}c
+}
+
+#export PATH="$HOME/.cargo/bin:$PATH"
 #export PATH="/home/alvaro/.bin:/opt/eclipse:/opt/anaconda3/bin:$PATH" 
 #tail -n +1 /home/alvaro/msg
 #echo "Welcome Overlord!"
