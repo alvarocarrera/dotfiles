@@ -1,9 +1,57 @@
 [[ -o INTERACTIVE && -t 2 ]] && {
-  case "$(hostname)" in
+
+  host="$(hostname)"
+
+  # ──────────────────────────────────────────────
+  # Mensajes para ROOT (UID 0)
+  # ──────────────────────────────────────────────
+  if [[ $EUID -eq 0 ]]; then
+    case "$host" in
+      atlas)
+        cat <<-EOF
+
+⚠️ Cerrando sesión de root en atlas
+    Incluso un titán debe actuar con cuidado.
+
+EOF
+        ;;
+      oceano)
+        cat <<-EOF
+
+⚠️ Cerrando sesión de root en oceano
+    Que las profundidades sigan en calma.
+
+EOF
+        ;;
+      prometeo)
+        cat <<-EOF
+
+⚠️ Cerrando sesión de root en prometeo
+    El fuego está bajo control… por ahora.
+
+EOF
+        ;;
+      cronos)
+        cat <<-EOF
+
+⚠️ Cerrando sesión de root en cronos
+    El tiempo también observa tus acciones.
+
+EOF
+        ;;
+    esac
+
+    return
+  fi
+
+  # ──────────────────────────────────────────────
+  # Mensajes para usuarios normales
+  # ──────────────────────────────────────────────
+  case "$host" in
     atlas)
       cat <<-EOF
 
-🗿 Cerrando sesión en atlas 
+🗿 Cerrando sesión en atlas
     La carga del mundo espera tu regreso.
 
 EOF
