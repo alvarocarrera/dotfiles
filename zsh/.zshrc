@@ -106,14 +106,112 @@ function start-pal-dev-docker-machine () {
 }
 
 function attach-pal-dev () {
-    docker exec -it --user user pal-dev-machine bash
+    docker exec -it pal-dev-machine bash
 }
 
 function ari-ssh-login {
     ssh pal@ari-${1:-42}c
 }
 
-#export PATH="$HOME/.cargo/bin:$PATH"
-#export PATH="/home/alvaro/.bin:/opt/eclipse:/opt/anaconda3/bin:$PATH" 
-#tail -n +1 /home/alvaro/msg
-#echo "Welcome Overlord!"
+function protege-launch () {
+    /home/alvaro/Protege-5.6.4/run.sh > /dev/null &
+}
+
+function cesvima-ssh () {
+    ssh vpsadmin@gsi.upm.es
+}
+function widoco-launch () {
+  docker run -ti --rm -v ./src:/usr/local/widoco/in:Z -v ./doc:/usr/local/widoco/out:Z ghcr.io/dgarijo/widoco:latest -confFile in/widoco-amor-config.properties -ontFile in/amor.n3 -outFolder out -rewriteAll
+}
+
+openclaw() {
+  docker exec -it openclaw-gateway node dist/index.js "$@"
+}
+
+lpprint () {
+  local file="" copies=1 printer="" mode="duplex" color_mode="${PRINT_COLOR:-mono}" quality=""
+  local last="" arg
+
+  for arg in "$@"; do last="$arg"; done
+
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -f|--file)    file="$2"; shift 2 ;;
+      -n|--copies)  copies="$2"; shift 2 ;;
+      -p|--printer) printer="$2"; shift 2 ;;
+      -q|--quality) quality="$2"; shift 2 ;;
+      -c|--color)   color_mode="color"; shift ;;
+      -m|--mono)    color_mode="mono"; shift ;;
+      -d|--duplex)  mode="duplex"; shift ;;
+      -s|--single)  mode="single"; shift ;;
+
+      file=*)     file="${1#file=}"; shift ;;
+      copies=*)   copies="${1#copies=}"; shift ;;
+      printer=*)  printer="${1#printer=}"; shift ;;
+      quality=*)  quality="${1#quality=}"; shift ;;
+      mode=*|sides=*) mode="${1#*=}"; shift ;;
+      color=*)
+        color_mode="${1#color=}"
+        case "$color_mode" in
+          gray|grey) color_mode="mono" ;;
+          rgb)       color_mode="color" ;;
+        esac
+        shift
+        ;;
+
+      --help|-h)
+        echo "Uso: lpprint [archivo] [-d|-s] [-n N] [-c|-m] [-q draft|normal|high] [-p IMPRESORA]"
+        return 0
+        ;;
+
+      *=*) shift ;;
+      *)
+        if [[ -z "$file" && -f "$1" ]]; then file="$1"; fi
+        shift
+        ;;
+    esac
+  done
+
+  if [[ -z "$printer" && -n "$last" && "$last" != *=* && "$last" != --* && "$last" != -* && ! -f "$last" ]]; then
+    printer="$last"
+  fi
+  [[ -z "$printer" ]] && printer="HP_B208_M478f"
+
+  if [[ -z "$file" || ! -f "$file" ]]; then
+    echo "Error: debes indicar un archivo existente."
+    return 2
+  fi
+
+  local color_option=""
+  case "$color_mode" in
+    mono)  color_option="-o ColorModel=Gray" ;;
+    color) color_option="-o ColorModel=RGB" ;;
+    *) echo "Modo color inválido: $color_mode"; return 3 ;;
+  esac
+
+  local quality_option=""
+  if [[ -n "$quality" ]]; then
+    case "$quality" in
+      draft|Draft)   quality_option="-o cupsPrintQuality=Draft" ;;
+      normal|Normal) quality_option="-o cupsPrintQuality=Normal" ;;
+      high|High)     quality_option="-o cupsPrintQuality=High" ;;
+      *) echo "quality inválida: $quality"; return 4 ;;
+    esac
+  fi
+
+  local sides_option=""
+  case "$mode" in
+    duplex|two-sided|2) sides_option="-o sides=two-sided-long-edge" ;;
+    single|one-sided|1) sides_option="-o sides=one-sided" ;;
+    *) echo "Modo inválido: $mode"; return 5 ;;
+  esac
+
+  lp -d "$printer" -n "$copies" \
+     $sides_option \
+     $color_option \
+     $quality_option \
+     "$file"
+}
+
+alias pr='lpprint'
+alias print-from-console='lpprint'
