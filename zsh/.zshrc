@@ -124,10 +124,6 @@ function widoco-launch () {
   docker run -ti --rm -v ./src:/usr/local/widoco/in:Z -v ./doc:/usr/local/widoco/out:Z ghcr.io/dgarijo/widoco:latest -confFile in/widoco-amor-config.properties -ontFile in/amor.n3 -outFolder out -rewriteAll
 }
 
-openclaw() {
-  docker exec -it openclaw-gateway node dist/index.js "$@"
-}
-
 lpprint () {
   local file="" copies=1 printer="" mode="duplex" color_mode="${PRINT_COLOR:-mono}" quality=""
   local last="" arg
@@ -215,3 +211,9 @@ lpprint () {
 
 alias pr='lpprint'
 alias print-from-console='lpprint'
+
+[[ -r "$HOME/.config/zsh/local.zsh" ]] && source "$HOME/.config/zsh/local.zsh"
+
+for f in "$HOME/.config/zsh/local.d/"*.zsh(N); do
+  source "$f"
+done
