@@ -209,8 +209,13 @@ lpprint () {
      "$file"
 }
 
+# Aliases for print from console
 alias pr='lpprint'
 alias print-from-console='lpprint'
+
+# Aliases for OpenClaw
+alias op='openclaw'
+alias oc='openclaw'
 
 [[ -r "$HOME/.config/zsh/local.zsh" ]] && source "$HOME/.config/zsh/local.zsh"
 
