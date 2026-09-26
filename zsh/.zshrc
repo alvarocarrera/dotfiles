@@ -222,3 +222,6 @@ alias oclogs='openclaw logs --follow --local-time'
 for f in "$HOME/.config/zsh/local.d/"*.zsh(N); do
   source "$f"
 done
+
+# Hermes completion (official + session/kanban ids); no-op without hermes
+[[ -r "$HOME/.config/zsh/hermes/hermes-completion.zsh" ]] && source "$HOME/.config/zsh/hermes/hermes-completion.zsh"
