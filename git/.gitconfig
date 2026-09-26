@@ -25,3 +25,7 @@ lg = !"git lg1"
 	required = true
 [pull]
 	ff = only
+[credential]
+	helper = store
+[init]
+	defaultBranch = main

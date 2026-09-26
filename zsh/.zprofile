@@ -96,3 +96,6 @@ export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin/
 
 setopt interactivecomments
+
+# Hermes Agent command
+export PATH="$HOME/.local/bin:$PATH"

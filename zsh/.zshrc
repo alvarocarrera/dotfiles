@@ -223,5 +223,12 @@ for f in "$HOME/.config/zsh/local.d/"*.zsh(N); do
   source "$f"
 done
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Hermes Agent command
+export PATH="$HOME/.local/bin:$PATH"
+
 # Hermes completion (official + session/kanban ids); no-op without hermes
 [[ -r "$HOME/.config/zsh/hermes/hermes-completion.zsh" ]] && source "$HOME/.config/zsh/hermes/hermes-completion.zsh"
