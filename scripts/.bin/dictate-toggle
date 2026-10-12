@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+# Global dictation toggle (GNOME Wayland): first call records, second call
+# transcribes with local whisper.cpp and pastes into the focused window.
+# Needs: pw-record, whisper-cli, wl-clipboard, ydotool (+ydotoold user service).
+set -u
+
+MODEL="${DICTATE_MODEL:-$HOME/.local/share/whisper/ggml-small.bin}"
+LANG_CODE="${DICTATE_LANG:-es}"
+RUN="${XDG_RUNTIME_DIR:-/tmp}/dictate"
+PIDFILE="$RUN/pid"
+WAV="$RUN/rec.wav"
+mkdir -p "$RUN"
+
+notify() { notify-send -t 1500 -h string:x-canonical-private-synchronous:dictate "Dictado" "$1"; }
+
+if [[ -f "$PIDFILE" ]] && kill -0 "$(cat "$PIDFILE")" 2>/dev/null; then
+    kill -INT "$(cat "$PIDFILE")"
+    rm -f "$PIDFILE"
+    sleep 0.3
+    notify "Transcribiendo…"
+    # pw-record writes a 44-byte header; ~32 KB/s at 16 kHz mono s16
+    if [[ ! -s "$WAV" ]] || (( $(stat -c %s "$WAV") < 24000 )); then
+        notify "Audio demasiado corto"
+        exit 0
+    fi
+    text=$(whisper-cli -m "$MODEL" -l "$LANG_CODE" -nt -np -t 8 -f "$WAV" 2>/dev/null \
+        | tr '\n' ' ' | sed -E 's/^[[:space:]]+|[[:space:]]+$//g')
+    rm -f "$WAV"
+    # whisper emits markers or stock phrases on silence; do not paste those
+    if [[ -z "$text" || "$text" =~ ^\[.*\]$ || "$text" =~ ^\(.*\)$ ]]; then
+        notify "Nada que pegar"
+        exit 0
+    fi
+    prev=$(wl-paste --no-newline 2>/dev/null || true)
+    printf '%s' "$text" | wl-copy
+    sleep 0.1
+    ydotool key 29:1 42:1 47:1 47:0 42:0 29:0   # Ctrl+Shift+V
+    sleep 0.4
+    if [[ -n "$prev" ]]; then printf '%s' "$prev" | wl-copy; else wl-copy --clear; fi
+    notify "Pegado"
+else
+    rm -f "$WAV"
+    pw-record --rate 16000 --channels 1 --format s16 "$WAV" &
+    echo $! > "$PIDFILE"
+    notify "Grabando… (Ctrl+Alt+V para parar)"
+fi
