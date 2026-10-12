@@ -232,3 +232,26 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # Hermes completion (official + session/kanban ids); no-op without hermes
 [[ -r "$HOME/.config/zsh/hermes/hermes-completion.zsh" ]] && source "$HOME/.config/zsh/hermes/hermes-completion.zsh"
+
+# Claude Code mediante OpenRouter
+claude-or() {
+    local key
+
+    if [[ -n "${OPENROUTER_API_KEY:-}" ]]; then
+        key="$OPENROUTER_API_KEY"
+    elif [[ -r "$HOME/.config/claude-openrouter/token" ]]; then
+        key="$(< "$HOME/.config/claude-openrouter/token")"
+    else
+        read -rs "key?OpenRouter API key: "
+        printf '\n'
+    fi
+
+    [[ -n "$key" ]] || return 1
+
+    ANTHROPIC_BASE_URL="https://openrouter.ai/api" \
+    ANTHROPIC_AUTH_TOKEN="$key" \
+    ANTHROPIC_API_KEY="" \
+    ANTHROPIC_MODEL="~anthropic/claude-sonnet-latest" \
+    CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY=1 \
+    command claude "$@"
+}
