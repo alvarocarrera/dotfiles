@@ -9,11 +9,15 @@ LANG_CODE="${DICTATE_LANG:-es}"
 RUN="${XDG_RUNTIME_DIR:-/tmp}/dictate"
 PIDFILE="$RUN/pid"
 WAV="$RUN/rec.wav"
+LOCK="$RUN/lock"
 mkdir -p "$RUN"
 
 notify() { notify-send -t 1500 -h string:x-canonical-private-synchronous:dictate "Dictado" "$1"; }
 
 if [[ -f "$PIDFILE" ]] && kill -0 "$(cat "$PIDFILE")" 2>/dev/null; then
+    # one transcription at a time; held until exit (fd 9)
+    exec 9>"$LOCK"
+    flock -n 9 || { notify "Aún transcribiendo…"; exit 0; }
     kill -INT "$(cat "$PIDFILE")"
     rm -f "$PIDFILE"
     sleep 0.3
@@ -39,6 +43,12 @@ if [[ -f "$PIDFILE" ]] && kill -0 "$(cat "$PIDFILE")" 2>/dev/null; then
     if [[ -n "$prev" ]]; then printf '%s' "$prev" | wl-copy; else wl-copy --clear; fi
     notify "Pegado"
 else
+    # a transcription is still using rec.wav: do not start a new recording
+    # (subshell so pw-record does not inherit the lock fd)
+    if ! ( exec 9>"$LOCK"; flock -n 9 ); then
+        notify "Aún transcribiendo…"
+        exit 0
+    fi
     rm -f "$WAV"
     pw-record --rate 16000 --channels 1 --format s16 "$WAV" &
     echo $! > "$PIDFILE"
