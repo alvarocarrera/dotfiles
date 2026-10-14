@@ -12,7 +12,8 @@ WAV="$RUN/rec.wav"
 LOCK="$RUN/lock"
 mkdir -p "$RUN"
 
-notify() { notify-send -t 1500 -h string:x-canonical-private-synchronous:dictate "Dictado" "$1"; }
+# transient: GNOME shows a banner but does not keep it in the notification tray
+notify() { notify-send -t 1500 -h boolean:transient:true -h string:x-canonical-private-synchronous:dictate "Dictado" "$1"; }
 
 if [[ -f "$PIDFILE" ]] && kill -0 "$(cat "$PIDFILE")" 2>/dev/null; then
     # one transcription at a time; held until exit (fd 9)
@@ -38,10 +39,16 @@ if [[ -f "$PIDFILE" ]] && kill -0 "$(cat "$PIDFILE")" 2>/dev/null; then
     prev=$(wl-paste --no-newline 2>/dev/null || true)
     printf '%s' "$text" | wl-copy
     sleep 0.1
-    ydotool key 29:1 42:1 47:1 47:0 42:0 29:0   # Ctrl+Shift+V
-    sleep 0.4
-    if [[ -n "$prev" ]]; then printf '%s' "$prev" | wl-copy; else wl-copy --clear; fi
-    notify "Pegado"
+    if [[ -S "${XDG_RUNTIME_DIR:-/tmp}/.ydotool_socket" ]] \
+        && ydotool key 29:1 42:1 47:1 47:0 42:0 29:0; then   # Ctrl+Shift+V
+        sleep 0.4
+        if [[ -n "$prev" ]]; then printf '%s' "$prev" | wl-copy; else wl-copy --clear; fi
+        notify "Pegado"
+    else
+        # keep the dictated text in the clipboard so it is not lost
+        notify-send -h string:x-canonical-private-synchronous:dictate "Dictado" \
+            "No se pudo pegar (ydotoold caído): texto copiado, pega con Ctrl+Shift+V"
+    fi
 else
     # a transcription is still using rec.wav: do not start a new recording
     # (subshell so pw-record does not inherit the lock fd)
