@@ -37,12 +37,12 @@ if [[ -f "$PIDFILE" ]] && kill -0 "$(cat "$PIDFILE")" 2>/dev/null; then
         exit 0
     fi
     prev=$(wl-paste --no-newline 2>/dev/null || true)
-    printf '%s' "$text" | wl-copy
+    printf '%s' "$text" | wl-copy 9>&-
     sleep 0.1
     if [[ -S "${XDG_RUNTIME_DIR:-/tmp}/.ydotool_socket" ]] \
         && ydotool key 29:1 42:1 47:1 47:0 42:0 29:0; then   # Ctrl+Shift+V
         sleep 0.4
-        if [[ -n "$prev" ]]; then printf '%s' "$prev" | wl-copy; else wl-copy --clear; fi
+        if [[ -n "$prev" ]]; then printf '%s' "$prev" | wl-copy 9>&-; else wl-copy --clear 9>&-; fi
         notify "Pegado"
     else
         # keep the dictated text in the clipboard so it is not lost
