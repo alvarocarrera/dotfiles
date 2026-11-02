@@ -31,6 +31,7 @@ alias dci="docker_clean_images"
 alias dcc="docker_clean_containers"
 alias dac="docker_apply_containers"
 alias dip="docker image prune"
+alias hermes-bridge='python3 "$HOME/repos/hermes-admin/scripts/hermes-work-bridge.py" wrapper'
 
 function docker_start_attach () {
     docker start $1 && docker attach $1
@@ -255,3 +256,14 @@ claude-or() {
     CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY=1 \
     command claude "$@"
 }
+
+# Load the local Hermes MCP token only for these agent processes.
+function codex claude() (
+  local token_file="$HOME/.config/hermes-admin/work-bridge.env"
+  if [[ -r "$token_file" ]]; then
+    set -a
+    source "$token_file"
+    set +a
+  fi
+  command "$0" "$@"
+)
