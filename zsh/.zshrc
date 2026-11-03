@@ -126,10 +126,7 @@ function widoco-launch () {
 }
 
 lpprint () {
-  local file="" copies=1 printer="" mode="duplex" color_mode="${PRINT_COLOR:-mono}" quality=""
-  local last="" arg
-
-  for arg in "$@"; do last="$arg"; done
+  local file="" copies=1 printer="" mode="duplex" color_mode="${PRINT_COLOR:-mono}" quality="" raster=0 arg
 
   while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -141,6 +138,7 @@ lpprint () {
       -m|--mono)    color_mode="mono"; shift ;;
       -d|--duplex)  mode="duplex"; shift ;;
       -s|--single)  mode="single"; shift ;;
+      -r|--raster)  raster=1; shift ;;
 
       file=*)     file="${1#file=}"; shift ;;
       copies=*)   copies="${1#copies=}"; shift ;;
@@ -157,21 +155,23 @@ lpprint () {
         ;;
 
       --help|-h)
-        echo "Uso: lpprint [archivo] [-d|-s] [-n N] [-c|-m] [-q draft|normal|high] [-p IMPRESORA]"
+        echo "Uso: lpprint [archivo] [IMPRESORA] [-d|-s] [-n N] [-c|-m] [-q draft|normal|high] [-p IMPRESORA] [-r]"
+        echo "  -r  rasteriza el PDF a imagen antes de imprimir (para PDFs que la impresora ignora); cada pagina sale por separado a una cara"
         return 0
         ;;
 
       *=*) shift ;;
       *)
-        if [[ -z "$file" && -f "$1" ]]; then file="$1"; fi
+        if [[ -z "$file" && -f "$1" ]]; then
+          file="$1"
+        elif [[ -z "$printer" && "$1" != -* ]]; then
+          printer="$1"
+        fi
         shift
         ;;
     esac
   done
 
-  if [[ -z "$printer" && -n "$last" && "$last" != *=* && "$last" != --* && "$last" != -* && ! -f "$last" ]]; then
-    printer="$last"
-  fi
   [[ -z "$printer" ]] && printer="HP_B208_M478f"
 
   if [[ -z "$file" || ! -f "$file" ]]; then
@@ -179,35 +179,40 @@ lpprint () {
     return 2
   fi
 
-  local color_option=""
+  local -a opts
   case "$color_mode" in
-    mono)  color_option="-o ColorModel=Gray" ;;
-    color) color_option="-o ColorModel=RGB" ;;
+    mono)  opts+=(-o ColorModel=Gray) ;;
+    color) opts+=(-o ColorModel=RGB) ;;
     *) echo "Modo color inválido: $color_mode"; return 3 ;;
   esac
 
-  local quality_option=""
   if [[ -n "$quality" ]]; then
     case "$quality" in
-      draft|Draft)   quality_option="-o cupsPrintQuality=Draft" ;;
-      normal|Normal) quality_option="-o cupsPrintQuality=Normal" ;;
-      high|High)     quality_option="-o cupsPrintQuality=High" ;;
+      draft|Draft)   opts+=(-o cupsPrintQuality=Draft) ;;
+      normal|Normal) opts+=(-o cupsPrintQuality=Normal) ;;
+      high|High)     opts+=(-o cupsPrintQuality=High) ;;
       *) echo "quality inválida: $quality"; return 4 ;;
     esac
   fi
 
-  local sides_option=""
   case "$mode" in
-    duplex|two-sided|2) sides_option="-o sides=two-sided-long-edge" ;;
-    single|one-sided|1) sides_option="-o sides=one-sided" ;;
+    duplex|two-sided|2) opts+=(-o sides=two-sided-long-edge) ;;
+    single|one-sided|1) opts+=(-o sides=one-sided) ;;
     *) echo "Modo inválido: $mode"; return 5 ;;
   esac
 
-  lp -d "$printer" -n "$copies" \
-     $sides_option \
-     $color_option \
-     $quality_option \
-     "$file"
+  if (( raster )); then
+    local tmp img rc=0
+    tmp=$(mktemp -d) || return 6
+    pdftoppm -jpeg -r 300 "$file" "$tmp/p" || { rm -rf "$tmp"; return 7; }
+    for img in "$tmp"/p*.jpg; do
+      lp -d "$printer" -n "$copies" "${opts[@]}" -o sides=one-sided -o fit-to-page -o media=A4 "$img" || rc=$?
+    done
+    sleep 2; rm -rf "$tmp"
+    return $rc
+  fi
+
+  lp -d "$printer" -n "$copies" "${opts[@]}" "$file"
 }
 
 # Aliases for print from console
