@@ -272,3 +272,5 @@ function codex claude() (
   fi
   command "$0" "$@"
 )
+
+command -v batcat >/dev/null 2>&1 && alias cat='batcat'  # bat
